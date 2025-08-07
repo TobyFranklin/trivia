@@ -8,7 +8,7 @@ body { padding: 0; margin: 0 }
 #unity-loading-bar {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 62%;
   transform: translate(-50%, -50%);
   display: none;
 }
@@ -25,14 +25,12 @@ body { padding: 0; margin: 0 }
   left: 0;
   top: 0;
   width: 680px; height: 55px;
-  width: 100%;  /* Full width, but child inside grows */
-  height: 100%;
   overflow: hidden;
 }
 
 #unity-progress-bar-full {
-  width: 0%; /* this is what grows */
-  height: 100%;
+  width: 680px;
+  height: 55px;
   background: url('loading-fill.png') no-repeat left center;
 }
 #unity-footer { position: relative }
