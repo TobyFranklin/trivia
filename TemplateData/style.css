@@ -11,18 +11,16 @@ body { padding: 0; margin: 0 }
   top: calc(50% + 610px);
   transform: translateX(-50%);
   display: none;
-  width: 660px; height: 55px;
+  width: 62%; height: 2%;
 }
 
 #unity-loading-bar.unity-mobile{
 position: absolute;
   left: 50%;
-  top: calc(50% + 610px);
   transform: translateX(-50%);
   display: none;
-    top: calc(50% + 150px);
-    width: 160px;
-    height: 15px;
+  top: calc(50% + 150px);
+  width: 62%; height: 2%;
 }
 
 #unity-progress-bar-empty {
