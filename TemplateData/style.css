@@ -1,13 +1,90 @@
 body { padding: 0; margin: 0 }
-#unity-container { position: absolute }
+#unity-container { position: absolute ; background: url('background.png');background-size: cover;
+  overflow: hidden;}
 #unity-container.unity-desktop { left: 50%; top: 50%; transform: translate(-50%, -50%) }
-#unity-container.unity-mobile { position: fixed; width: 100%; height: 100% }
-#unity-canvas { background: #231F20 }
+#unity-container.unity-mobile { position: fixed; width: 100%; height: 100%}
+#unity-canvas { background:'transparent' }
 .unity-mobile #unity-canvas { width: 100%; height: 100% }
-#unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none }
-#unity-logo { width: 154px; height: 130px; background: url('unity-logo-dark.png') no-repeat center }
-#unity-progress-bar-empty { width: 141px; height: 18px; margin-top: 10px; margin-left: 6.5px; background: url('progress-bar-empty-dark.png') no-repeat center }
-#unity-progress-bar-full { width: 0%; height: 18px; margin-top: 10px; background: url('progress-bar-full-dark.png') no-repeat center }
+
+#unity-loading-bar {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 585px);
+  transform: translateX(-50%);
+  display: none;
+  width: 680px; height: 55px;
+}
+#unity-progress-bar-empty {
+  position: relative;
+  width: 680px;
+  height: 55px;
+  background: url('loading-empty.png') no-repeat center;
+  background-size: cover;
+  overflow: hidden; /* this clips the fill to the rounded shape */
+}
+
+#unity-progress-bar-fill-wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;  /* Full width, but child inside grows */
+  height: 100%;
+  overflow: hidden;
+}
+
+#unity-progress-bar-full {
+  width: 0%; /* this is what grows */
+  height: 100%;
+  background: url('loading-fill.png') no-repeat left center;
+  background-size: cover;
+}
+
+.desktop-loading-bar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  transform: translate(-50%, -50%);
+}
+
+.unity-desktop #unity-canvas {
+  margin: 0 auto;
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mobile */
+.mobile-loading-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+}
+
+.unity-mobile #unity-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+#unity-container.unity-mobile #unity-progress-bar-empty {
+  width: 100%;
+  height: 40px;
+  background-size: contain;
+}
+
+#unity-container.unity-mobile #unity-progress-bar-fill-wrapper {
+  height: 100%;
+}
+
+#unity-container.unity-mobile #unity-progress-bar-full {
+  height: 100%;
+  background-size: contain;
+}
+
+
 #unity-footer { position: relative }
 .unity-mobile #unity-footer { display: none }
 #unity-logo-title-footer { float:left; width: 102px; height: 38px; background: url('unity-logo-title-footer.png') no-repeat center }
