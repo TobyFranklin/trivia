@@ -1,7 +1,7 @@
 body { padding: 0; margin: 0 }
 #unity-container { position: absolute ; background: url('background.png');background-size: cover;
   overflow: hidden; }
-#unity-container.unity-desktop { left: 50%; top: 50%; transform: translate(-50%, -50%) }
+#unity-container.unity-desktop { position:fixed; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(0.5); }
 #unity-container.unity-mobile {
   position: fixed;
   width: 100%;
@@ -13,16 +13,16 @@ body { padding: 0; margin: 0 }
 #unity-canvas { background:'transparent' }
 .unity-mobile #unity-canvas { width: 100%; height: 100% }
 #unity-loading-bar {
-  position: absolute;
-  left: 50%;
-  top: calc(73%);
-  transform: translateX(-50%);
-  display: none;
-  width: 63%; height: 2.5%;
+    position: fixed; /* instead of absolute */
+    left: 50%;
+    top: 73%; /* 73% of the viewport height */
+    transform: translateX(-50%);
+    width: 63%;
+    height: 2.5%;
 }
 
 #unity-loading-bar.unity-mobile{
-position: absolute;
+position: fixed;
   left: 50%;
   transform: translateX(-50%);
   display: none;
