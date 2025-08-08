@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="en-us">
+  <script>
+   function setUnityContainerHeight() {
+  const container = document.getElementById('unity-container');
+  container.style.height = window.innerHeight + 'px';
+}
+window.addEventListener('resize', setUnityContainerHeight);
+window.addEventListener('orientationchange', setUnityContainerHeight);
+setUnityContainerHeight();
+</script>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
