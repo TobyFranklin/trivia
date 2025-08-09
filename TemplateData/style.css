@@ -4,15 +4,27 @@ body { padding: 0; margin: 0 }
 #unity-container.unity-desktop { left: 50%; top: 50%; transform: translate(-50%, -50%) }
 #unity-container.unity-mobile {
   position: fixed;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-size: cover;
   background-position: center center;
   padding-bottom: env(safe-area-inset-bottom);
-  overflow: hidden
+  overflow: hidden;
+  display: flex;               /* use flexbox */
+  justify-content: center;     /* center horizontally */
+  align-items: center;         /* center vertically */
 }
 #unity-canvas { background:'transparent' }
-.unity-mobile #unity-canvas { width: 100%; height: 100% }
+.unity-mobile #unity-canvas {
+  height: 100vh;              /* fill full viewport height */
+  width: auto;                /* width auto to keep aspect ratio */
+  max-width: 100vw;           /* don't overflow viewport width */
+  display: block;             /* remove inline spacing */
+  margin-left: auto;          /* center horizontally */
+  margin-right: auto;
+  background: transparent;
+  object-fit: contain;        /* just in case */
+}
 #unity-loading-bar {
   position: absolute;
   left: 50%;
