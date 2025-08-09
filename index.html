@@ -81,22 +81,34 @@
       // expected to change.
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
+  function resizeUnityCanvasMobile() {
+    const aspect = 1080 / 2400;
+    const isLandscape = window.innerWidth > window.innerHeight;
 
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
-        document.querySelector("#unity-container").className = "unity-mobile";
-        document.querySelector("#unity-loading-bar").className = "unity-mobile";
-        canvas.className = "unity-mobile";
+    if (!isLandscape) {
+      const width = window.innerWidth;
+      const height = width / aspect;
 
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+    } else {
+      const height = window.innerHeight;
+      const width = height * aspect;
 
+      canvas.style.height = height + 'px';
+      canvas.style.width = width + 'px';
+    }
 
-      } else {
+    canvas.style.display = 'block';
+    canvas.style.marginLeft = 'auto';
+    canvas.style.marginRight = 'auto';
+  }
+
+  window.addEventListener('resize', resizeUnityCanvasMobile);
+  window.addEventListener('orientationchange', resizeUnityCanvasMobile);
+  resizeUnityCanvasMobile();
+
+} else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
         function resizeUnityCanvas() {
