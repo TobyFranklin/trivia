@@ -94,27 +94,36 @@
         canvas.className = "unity-mobile";
 
         function resizeUnityCanvasMobile() {
-    const aspect = 1080 / 2400;
+  const aspect = 1080 / 2400;
 
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+  const width = window.innerWidth;
+  const height = window.innerHeight;
 
-    if (width < height) {
-      // Portrait
-      canvas.style.width = width + 'px';
-      canvas.style.height = height + 'px';
-    } else {
-      // Landscape: fix canvas height and width by aspect ratio
-  container.style.height = window.innerHeight + 'px';
-  canvas.style.width = (height * aspect) + 'px';
-
-  // Center the canvas horizontally by making the container flexbox centered
   const container = document.getElementById('unity-container');
-  container.style.display = 'flex';
-  container.style.justifyContent = 'center';
-  container.style.alignItems = 'center';
-}
+
+  // Always update container height to window height on orientation/resize
+  container.style.height = height + 'px';
+
+  if (width < height) {
+    // Portrait: full screen canvas
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+
+    // Reset container flex styles so it behaves normally
+    container.style.display = '';
+    container.style.justifyContent = '';
+    container.style.alignItems = '';
+  } else {
+    // Landscape: maintain aspect ratio, center canvas
+    canvas.style.height = height + 'px';
+    canvas.style.width = (height * aspect) + 'px';
+
+    // Center canvas with flexbox container
+    container.style.display = 'flex';
+    container.style.justifyContent = 'center';
+    container.style.alignItems = 'center'; // optional
   }
+}
 
   resizeUnityCanvasMobile();
   window.addEventListener('resize', resizeUnityCanvasMobile);
