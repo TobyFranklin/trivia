@@ -43,7 +43,7 @@ body {
 /* Mobile container landscape height - let it auto size (no fixed height) */
 @media (orientation: landscape) {
   #unity-container.unity-mobile {
-    height: auto; /* container can grow naturally with content */
+    height: 100vh; /* container can grow naturally with content */
   }
 }
 
