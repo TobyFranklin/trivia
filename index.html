@@ -81,43 +81,38 @@
       // expected to change.
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-  // Mobile devices
-  function resizeUnityCanvasDesktop() {
-    const aspect = 1080 / 2400; // your Unity build aspect ratio (width/height)
-    const height = window.innerHeight;
-    const width = height * aspect;
+        // Mobile device style: fill the whole browser client area with the game canvas:
 
-    canvas.style.height = height + 'px';
-    canvas.style.width = width + 'px';
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        document.querySelector("#unity-container").className = "unity-mobile";
+        document.querySelector("#unity-loading-bar").className = "unity-mobile";
+        canvas.className = "unity-mobile";
 
-    canvas.style.display = 'block';
-    canvas.style.marginLeft = 'auto';
-    canvas.style.marginRight = 'auto';
-  }
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        // config.devicePixelRatio = 1;
 
-  window.addEventListener('resize', resizeUnityCanvasDesktop);
-  window.addEventListener('orientationchange', resizeUnityCanvasDesktop);
-  resizeUnityCanvasDesktop();
+      } else {
+        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
-} else {
-  // Desktop devices
-  function resizeUnityCanvasDesktop() {
-    const aspect = 1080 / 2400; // your Unity build aspect ratio (width/height)
-    const height = window.innerHeight;
-    const width = height * aspect;
+        function resizeUnityCanvas() {
+  const aspect = 1080 / 2400; // Unity’s build aspect ratio
+  const height = window.innerHeight;
+  const width = height * aspect;
 
-    canvas.style.height = height + 'px';
-    canvas.style.width = width + 'px';
-
-    canvas.style.display = 'block';
-    canvas.style.marginLeft = 'auto';
-    canvas.style.marginRight = 'auto';
-  }
-
-  window.addEventListener('resize', resizeUnityCanvasDesktop);
-  window.addEventListener('orientationchange', resizeUnityCanvasDesktop);
-  resizeUnityCanvasDesktop();
+  canvas.style.height = height + 'px';
+  canvas.style.width = width + 'px';
 }
+
+window.addEventListener('resize', resizeUnityCanvas);
+window.addEventListener('orientationchange', resizeUnityCanvas);
+resizeUnityCanvas();
+        //canvas.style.width = "1080px";
+        //canvas.style.height = "2400px";
+      }
 
       document.querySelector("#unity-loading-bar").style.display = "block";
 
