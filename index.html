@@ -82,34 +82,22 @@
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
   // Mobile devices
-  function resizeUnityCanvasMobile() {
+  function resizeUnityCanvasDesktop() {
     const aspect = 1080 / 2400; // your Unity build aspect ratio (width/height)
-    const isLandscape = window.innerWidth > window.innerHeight;
+    const height = window.innerHeight;
+    const width = height * aspect;
 
-    if (!isLandscape) {
-      // Portrait: width = full width, height = width / aspect ratio
-      const width = window.innerWidth;
-      const height = width / aspect;
-
-      canvas.style.width = width + 'px';
-      canvas.style.height = height + 'px';
-    } else {
-      // Landscape: height = full height, width = height * aspect ratio
-      const height = window.innerHeight;
-      const width = height * aspect;
-
-      canvas.style.height = height + 'px';
-      canvas.style.width = width + 'px';
-    }
+    canvas.style.height = height + 'px';
+    canvas.style.width = width + 'px';
 
     canvas.style.display = 'block';
     canvas.style.marginLeft = 'auto';
     canvas.style.marginRight = 'auto';
   }
 
-  window.addEventListener('resize', resizeUnityCanvasMobile);
-  window.addEventListener('orientationchange', resizeUnityCanvasMobile);
-  resizeUnityCanvasMobile();
+  window.addEventListener('resize', resizeUnityCanvasDesktop);
+  window.addEventListener('orientationchange', resizeUnityCanvasDesktop);
+  resizeUnityCanvasDesktop();
 
 } else {
   // Desktop devices
