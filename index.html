@@ -81,34 +81,43 @@
       // expected to change.
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-  function resizeUnityCanvasMobile() {
-    const container = document.getElementById('unity-container');
+        // Mobile device style: fill the whole browser client area with the game canvas:
+
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        document.querySelector("#unity-container").className = "unity-mobile";
+        document.querySelector("#unity-loading-bar").className = "unity-mobile";
+        canvas.className = "unity-mobile";
+
+        function resizeUnityCanvasMobile() {
     const aspect = 1080 / 2400;
-    const isLandscape = window.innerWidth > window.innerHeight;
 
-    const height = container.clientHeight
-    let width;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
 
-    if (!isLandscape) {
-      // Portrait: width = height (square)
-      width = container.clientWidth;
+    if (width < height) {
+      // Portrait
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
     } else {
-      // Landscape: width = height * aspect ratio
-      width = height * aspect;
+      // Landscape
+      canvas.style.height = height + 'px';
+      canvas.style.width = (height * aspect) + 'px';
     }
-
-    canvas.style.height = height + 'px';
-    canvas.style.width = width + 'px';
-
-    canvas.style.display = 'block';
-    canvas.style.marginLeft = 'auto';
-    canvas.style.marginRight = 'auto';
   }
 
+  resizeUnityCanvasMobile();
   window.addEventListener('resize', resizeUnityCanvasMobile);
   window.addEventListener('orientationchange', resizeUnityCanvasMobile);
-  resizeUnityCanvasMobile();
-} else {
+
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        // config.devicePixelRatio = 1;
+
+
+      } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
         function resizeUnityCanvas() {
