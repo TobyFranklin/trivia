@@ -1,66 +1,145 @@
-body { padding: 0; margin: 0; height: 100vh; width: 100vh;}
-#unity-container { position: absolute ; background: url('background.png');background-size: cover;
-  overflow: hidden; }
-#unity-container.unity-desktop { left: 50%; top: 50%; transform: translate(-50%, -50%); height: 100vh; width: auto; }
-
-#unity-container.unity-mobile {
-  height: 100vh;              /* fill full viewport height */
-  width: auto;                /* width auto to keep aspect ratio */       /* don't overflow viewport width */
-  display: block;             /* remove inline spacing */
-  margin-left: auto;          /* center horizontally */
-  margin-right: auto;
-  background: transparent;
-  object-fit: contain;        /* just in case */
+body {
+  padding: 0;
+  margin: 0;
+  background: black; /* fallback background */
 }
 
-#unity-canvas { background:'transparent' }
-.unity-mobile #unity-canvas { width: auto; height: 100vh; }
+/* Container shared styles */
+#unity-container {
+  position: absolute;
+  background: url('background.png');
+  background-size: cover;
+  background-position: center center;
+  overflow: hidden;
+}
+
+/* Desktop container centered */
+#unity-container.unity-desktop {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* Set explicit width/height via JS */
+}
+
+/* Mobile container fills viewport */
+#unity-container.unity-mobile {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-size: cover;
+  background-position: center center;
+  padding-bottom: env(safe-area-inset-bottom);
+  overflow: hidden;
+}
+
+/* Mobile container portrait height */
+@media (orientation: portrait) {
+  #unity-container.unity-mobile {
+    height: 100vh;
+  }
+}
+
+/* Mobile container landscape height - let it auto size (no fixed height) */
+@media (orientation: landscape) {
+  #unity-container.unity-mobile {
+    height: auto; /* container can grow naturally with content */
+  }
+}
+
+/* Canvas background transparent */
+#unity-canvas {
+  background: transparent;
+  display: block; /* remove inline-block whitespace */
+  margin: 0 auto; /* center horizontally */
+}
+
+/* Canvas sizing controlled by JS, so no forced 100% */
+.unity-mobile #unity-canvas {
+  /* Remove forced 100% width/height */
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%; /* Don't overflow container horizontally */
+}
+
+/* Loading bar styling */
 #unity-loading-bar {
   position: absolute;
   left: 50%;
   top: calc(73%);
   transform: translateX(-50%);
   display: none;
-  width: 63%; height: 2.5%;
+  width: 63%;
+  height: 2.5%;
 }
 
-#unity-loading-bar.unity-mobile{
-position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: none;
+#unity-loading-bar.unity-mobile {
   top: 80%;
-  width: 60%; height: 2.5%;
+  width: 60%;
+  height: 2.5%;
 }
 
+/* Progress bar */
 #unity-progress-bar-empty {
   width: 100%;
   height: 100%;
   background: url('loading-empty.png') no-repeat center;
-  background-size: cover;
-  overflow: hidden; /* this clips the fill to the rounded shape */
   background-size: 100% 100%;
+  overflow: hidden;
 }
 
 #unity-progress-bar-fill-wrapper {
-  width: 100%;  /* Full width, but child inside grows */
+  width: 100%;
   height: 100%;
-  background-color: transparent; /* no default fill color */
+  background-color: transparent;
   overflow: hidden;
 }
 
 #unity-progress-bar-full {
-  width: 0%; /* this is what grows */
+  width: 0%;
   height: 100%;
   background: url('loading-fill.png') no-repeat left center;
-  background-size: cover;
   background-size: 100% 100%;
 }
 
+/* Footer and warnings */
+#unity-footer {
+  position: relative;
+}
 
-#unity-footer { position: relative }
-.unity-mobile #unity-footer { display: none }
-#unity-logo-title-footer { float:left; width: 102px; height: 38px; background: url('unity-logo-title-footer.png') no-repeat center }
-#unity-build-title { float: right; margin-right: 10px; line-height: 38px; font-family: arial; font-size: 18px }
-#unity-fullscreen-button { cursor:pointer; float: right; width: 38px; height: 38px; background: url('fullscreen-button.png') no-repeat center }
-#unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
+.unity-mobile #unity-footer {
+  display: none;
+}
+
+#unity-logo-title-footer {
+  float: left;
+  width: 102px;
+  height: 38px;
+  background: url('unity-logo-title-footer.png') no-repeat center;
+}
+
+#unity-build-title {
+  float: right;
+  margin-right: 10px;
+  line-height: 38px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+}
+
+#unity-fullscreen-button {
+  cursor: pointer;
+  float: right;
+  width: 38px;
+  height: 38px;
+  background: url('fullscreen-button.png') no-repeat center;
+}
+
+#unity-warning {
+  position: absolute;
+  left: 50%;
+  top: 5%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 10px;
+  display: none;
+}
