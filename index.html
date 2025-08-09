@@ -102,10 +102,16 @@
       canvas.style.width = width + 'px';
       canvas.style.height = height + 'px';
     } else {
-      // Landscape
-      canvas.style.height = height + 'px';
-      canvas.style.width = (height * aspect) + 'px';
-    }
+      // Landscape: fix canvas height and width by aspect ratio
+  canvas.style.height = height + 'px';
+  canvas.style.width = (height * aspect) + 'px';
+
+  // Center the canvas horizontally by making the container flexbox centered
+  const container = document.getElementById('unity-container');
+  container.style.display = 'flex';
+  container.style.justifyContent = 'center';
+  container.style.alignItems = 'center';
+}
   }
 
   resizeUnityCanvasMobile();
