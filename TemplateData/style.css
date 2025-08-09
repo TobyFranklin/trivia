@@ -21,6 +21,20 @@ body { padding: 0; margin: 0 }
   width: 63%; height: 2.5%;
 }
 
+@media (orientation: portrait) {
+  #unity-container.unity-mobile {
+    height: 100vh;
+    width: 100vh;
+  }
+}
+
+/* Mobile container landscape height - let it auto size (no fixed height) */
+@media (orientation: landscape) {
+  #unity-container.unity-mobile {
+    height: 100vh;
+  }
+}
+
 #unity-loading-bar.unity-mobile{
 position: absolute;
   left: 50%;
