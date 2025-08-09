@@ -82,7 +82,7 @@
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
   function resizeUnityCanvasMobile() {
-    const aspect = 1080 / 2400;
+    const aspect =1080 /  2400 ;
     const isLandscape = window.innerWidth > window.innerHeight;
 
     if (!isLandscape) {
@@ -112,7 +112,7 @@
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
         function resizeUnityCanvas() {
-  const aspect = 1080 / 2400; // Unity’s build aspect ratio
+  const aspect = 1080/2400; // Unity’s build aspect ratio
   const height = window.innerHeight;
   const width = height * aspect;
 
