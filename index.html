@@ -1,14 +1,5 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <script>
-   function setUnityContainerHeight() {
-  const container = document.getElementById('unity-container');
-  container.style.height = window.innerHeight + 'px';
-}
-window.addEventListener('resize', setUnityContainerHeight);
-window.addEventListener('orientationchange', setUnityContainerHeight);
-setUnityContainerHeight();
-</script>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -90,26 +81,49 @@ setUnityContainerHeight();
       // expected to change.
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
+  // MOBILE: scale in portrait only
+  let portraitWidth = null;
+  let portraitHeight = null;
 
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
-        document.querySelector("#unity-container").className = "unity-mobile";
-        document.querySelector("#unity-loading-bar").className = "unity-mobile";
-        canvas.className = "unity-mobile";
+  function resizeUnityCanvasMobile() {
+    const isLandscape = window.innerWidth > window.innerHeight;
+    const aspect = 2400 / 1080; // Unity's build aspect ratio
 
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
+    if (!isLandscape) {
+      // Portrait: calculate and save size
+      portraitWidth = window.innerWidth;
+      portraitHeight = portraitWidth * aspect;
 
-
-      } else {
-        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-        canvas.style.width = "1080px";
-        canvas.style.height = "2400px";
+      canvas.style.width = portraitWidth + 'px';
+      canvas.style.height = portraitHeight + 'px';
+    } else {
+      // Landscape: use last saved portrait size if available
+      if (portraitWidth && portraitHeight) {
+        canvas.style.width = portraitWidth + 'px';
+        canvas.style.height = portraitHeight + 'px';
       }
+    }
+  }
+
+  window.addEventListener('resize', resizeUnityCanvasMobile);
+  window.addEventListener('orientationchange', resizeUnityCanvasMobile);
+  resizeUnityCanvasMobile();
+
+} else {
+  // DESKTOP: scale normally
+  function resizeUnityCanvas() {
+    const aspect = 1080 / 2400;
+    const height = window.innerHeight;
+    const width = height * aspect;
+
+    canvas.style.height = height + 'px';
+    canvas.style.width = width + 'px';
+  }
+
+  window.addEventListener('resize', resizeUnityCanvas);
+  window.addEventListener('orientationchange', resizeUnityCanvas);
+  resizeUnityCanvas();
+}
 
       document.querySelector("#unity-loading-bar").style.display = "block";
 
